@@ -3,25 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi Ramadhan</title>
+    <title>KOPRES SEDAYA - Ramadhan Berkah</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #f0f4f2; padding: 20px; color: #333; }
-        .card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .terkunci { opacity: 0.6; background: #e0e0e0; filter: grayscale(1); }
-        video { width: 100%; border-radius: 10px; margin-top: 10px; }
-        h1 { text-align: center; color: #2d5a27; }
-        .badge { display: inline-block; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
-        .badge-buka { background: #d4edda; color: #155724; }
-        .badge-kunci { background: #f8d7da; color: #721c24; }
+        :root {
+            --primary: #1b4332; /* Hijau Botol Gelap */
+            --accent: #d4af37;  /* Emas */
+            --bg: #fdfaf5;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg); 
+            margin: 0; padding: 15px; color: #333;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 0 0 35px 35px;
+            margin: -15px -15px 30px -15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--accent);
+        }
+        .logo-img {
+            width: 90px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        .kopres-title {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin: 5px 0;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .sub-title {
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+        .container { max-width: 500px; margin: auto; }
+        .card { 
+            background: white; 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            transition: 0.3s;
+        }
+        .terkunci { 
+            background: #f5f5f5; 
+            opacity: 0.8; 
+            filter: grayscale(1);
+        }
+        video { 
+            width: 100%; border-radius: 12px; 
+            margin-top: 15px; background: #000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .badge { 
+            display: inline-block; padding: 6px 14px; 
+            border-radius: 50px; font-size: 10px; 
+            font-weight: bold; letter-spacing: 1px;
+        }
+        .badge-buka { background: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; }
+        .badge-kunci { background: #eceff1; color: #546e7a; border: 1px solid #b0bec5; }
+        h3 { color: var(--primary); margin: 15px 0 5px 0; font-size: 18px; }
+        .info-tgl { font-size: 12px; color: #777; line-height: 1.5; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <h1>🌙 Materi Komunitas</h1>
-    <div id="konten">Memuat materi...</div>
+    <div class="header">
+        <img src="https://cdn-icons-png.flaticon.com/512/2316/2316631.png" class="logo-img" alt="Logo">
+        <div class="kopres-title">KOPRES SEDAYA</div>
+        <div class="sub-title">🌙 RAMADHAN BERKAH: JADWAL MATERI</div>
+    </div>
+
+    <div class="container">
+        <div id="konten">Menyiapkan keberkahan...</div>
+    </div>
 
     <script>
-        // GANTI LINK DI BAWAH INI DENGAN URL DARI APPS SCRIPT KAMU
-        const scriptURL = "https://script.google.com/macros/s/AKfycbxIpHPzztxb9KlD4qZUz3FL4UmvqwHkpp6e-HCXnJKLbSiDwzr2PHOWA0GGRCzDxh_o/exec";
+        // MASUKKAN URL APPS SCRIPT KAMU DI SINI
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxIpHPzztxb9KlD4qZUz3FL4UmvqwHkpp6e-HCXnJKLbSiDwzr2PHOWA0GGRCzDxh_o/exec"; 
 
         async function ambilData() {
             try {
@@ -33,23 +101,25 @@
 
                 data.forEach(item => {
                     const tglBuka = new Date(item.buka);
-                    const isBuka = sekarang >= tglBuka && item.video !== "";
+                    const isBuka = sekarang >= tglBuka && item.video && item.video.trim() !== "";
                     
                     const card = document.createElement('div');
                     card.className = `card ${isBuka ? '' : 'terkunci'}`;
                     
                     card.innerHTML = `
-                        <span class="badge ${isBuka ? 'badge-buka' : 'badge-kunci'}">${isBuka ? '🔓 TERBUKA' : '🔒 TERKUNCI'}</span>
+                        <span class="badge ${isBuka ? 'badge-buka' : 'badge-kunci'}">
+                            ${isBuka ? '✨ MATERI TERSEDIA' : '🔒 BELUM DIBUKA'}
+                        </span>
                         <h3>${item.judul}</h3>
                         ${isBuka ? 
-                            `<video controls><source src="${item.video}" type="video/mp4"></video>` : 
-                            `<p>Materi akan otomatis terbuka pada:<br><b>${tglBuka.toLocaleString('id-ID')}</b></p>`
+                            `<video controls preload="none"><source src="${item.video}" type="video/mp4"></video>` : 
+                            `<p class="info-tgl">Insha Allah akan tayang pada:<br><b>${tglBuka.toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' })}</b></p>`
                         }
                     `;
                     container.appendChild(card);
                 });
             } catch (e) {
-                document.getElementById('konten').innerHTML = "Cek URL Apps Script kamu, sepertinya ada yang salah.";
+                container.innerHTML = "<p style='text-align:center; color:red;'>Gagal memuat. Periksa koneksi atau URL Apps Script kamu.</p>";
             }
         }
         ambilData();
